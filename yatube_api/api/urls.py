@@ -6,12 +6,12 @@ from api.views import (PostViewSetAndDetail,
                        GroupViewSet,
                        FollowViewSet)
 
-router = SimpleRouter()
-router.register('posts', PostViewSetAndDetail, basename='post')
-router.register(r'posts/(?P<post_pk>\d+)/comments',
-                CommentViewSetAndDetail,
-                basename='comment')
-router.register('groups', GroupViewSet)
-router.register('follow', FollowViewSet, basename='follow')
+router_v1 = SimpleRouter()
+router_v1.register('posts', PostViewSetAndDetail, basename='post')
+router_v1.register(r'posts/(?P<post_pk>\d+)/comments',
+                   CommentViewSetAndDetail,
+                   basename='comment')
+router_v1.register('groups', GroupViewSet)
+router_v1.register('follow', FollowViewSet, basename='follow')
 
-urlpatterns = [path('', include(router.urls)), ]
+urlpatterns = [path('', include(router_v1.urls)), ]
