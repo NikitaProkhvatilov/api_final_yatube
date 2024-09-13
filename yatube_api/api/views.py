@@ -9,13 +9,13 @@ from .serializers import (PostSerializer,
                           CommentSerializer,
                           GroupSerializer,
                           FollowSerializer)
-from .permissions import IsAuthorOrAutheticated
+from .permissions import IsAuthorOrAutheticatedOrReadOnly
 
 
 class PostViewSetAndDetail(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthorOrAutheticated, ]
+    permission_classes = [IsAuthorOrAutheticatedOrReadOnly, ]
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
@@ -24,7 +24,7 @@ class PostViewSetAndDetail(viewsets.ModelViewSet):
 
 class CommentViewSetAndDetail(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthorOrAutheticated, ]
+    permission_classes = [IsAuthorOrAutheticatedOrReadOnly, ]
 
     def get_post(self):
         return get_object_or_404(Post, pk=self.kwargs.get('post_pk'))
